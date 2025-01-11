@@ -6,7 +6,8 @@
   "scripts": {
     "backend": "nodemon ./backend/index.js",
     "frontend": "cd ./frontend && npm run dev",
-    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+    "admin": "cd ./admin && npm run dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\" \"npm run admin\""
   },
   "keywords": [],
   "author": "",

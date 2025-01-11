@@ -3,6 +3,7 @@ import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -17,13 +18,13 @@ const Navbar = () => {
         <div className={scrolled ? "navbar scrolled" : "navbar"}>
             <div className="nav_container">
                 <div className="left">
-                    <img
+                    <Link to="/"><img
                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
                         alt=""
-                    />
-                    <span>Homepage</span>
-                    <span>TV Shows</span>
-                    <span>Movies</span>
+                    /></Link>
+                    <Link to="/"><span>Homepage</span></Link>
+                    <Link to="/shows"><span>TV Shows</span></Link>
+                    <Link to="/movies"><span>Movies</span></Link>
                     <span>New and Popular</span>
                     <span>My List</span>
                 </div>

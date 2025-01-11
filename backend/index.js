@@ -2,6 +2,9 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/usersRoutes.js';
+import moviesRoutes from './routes/moviesRoutes.js';
+import listsRoutes from './routes/listsRoutes.js';
 import path from 'path';
 import cors from 'cors';
 
@@ -28,6 +31,9 @@ app.use(cors({
 const __dirname = path.resolve();
 
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/movies', moviesRoutes);
+app.use('/api/lists', listsRoutes);
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '/frontend/dist')));
