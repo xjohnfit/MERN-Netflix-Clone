@@ -1,4 +1,4 @@
-import { LineStyle, Timeline, TrendingUp, PersonOutlineOutlined, Inventory2Outlined, AttachMoneyOutlined, BarChartOutlined, EmailOutlined, DynamicFeedOutlined, ChatBubbleOutline, WorkOutlineOutlined, ReportOutlined } from '@mui/icons-material';
+import { LineStyle, Timeline, TrendingUp, PersonOutlineOutlined, PlayArrow, AttachMoneyOutlined, BarChartOutlined, EmailOutlined, DynamicFeedOutlined, ChatBubbleOutline, WorkOutlineOutlined, ReportOutlined } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 const Sidebar = () => {
     return (
@@ -37,10 +37,10 @@ const Sidebar = () => {
                                     Users
                                 </li>
                             </Link>
-                            <Link to="/products">
+                            <Link to="/movies">
                                 <li className='p-2 cursor-pointer hover:bg-gray-200 active:bg-gray-200 rounded-xl'>
-                                    <Inventory2Outlined className="mr-2" />
-                                    Products
+                                    <PlayArrow className="mr-2" />
+                                    Movies
                                 </li>
                             </Link>
                             <li className='p-2 cursor-pointer hover:bg-gray-200 active:bg-gray-200 rounded-xl'>

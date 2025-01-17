@@ -2,38 +2,61 @@ import { Link } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { Edit, Delete } from '@mui/icons-material';
 import { productRows } from './seeds/dummyData';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import NewProduct from './NewProduct';
+import { MovieContext } from './context/movieContext/MovieContext';
+import { deleteMovie, getMovies } from './context/movieContext/movieApiControllers';
 
 const ProductList = () => {
-
-    const [data, setData] = useState(productRows);
     const [open, setOpen] = useState(false);
+    const { movies, dispatch } = useContext(MovieContext);
 
-    const handleDelete = (id) => {
-        setData(data.filter((item) => item.id !== id));
-    };
+    useEffect(() => {
+        getMovies(dispatch);
+      }, [dispatch]);
+    
+      const handleDelete = (id) => {
+        deleteMovie(id, dispatch);
+      };
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 90 },
+        { field: '_id', headerName: 'ID', width: 210 },
         {
-            field: 'product',
-            headerName: 'Product',
-            width: 250,
+            field: 'movie',
+            headerName: 'Movie',
+            width: 200,
             editable: true,
             renderCell: (params) => {
                 return (
                     <div className='flex items-center'>
-                        <img className='w-10 h-10 rounded-full object-cover mr-3' src={params.row.image} alt="Image" />
-                        {params.row.name}
+                        <img className='w-10 h-10 rounded-full object-cover mr-3' src={params.row.img} alt="Image" />
+                        {params.row.title}
                     </div>
                 );
             },
         },
         {
-            field: 'stock',
-            headerName: 'Stock',
-            width: 200,
+            field: 'genre',
+            headerName: 'Genre',
+            width: 120,
+            editable: true,
+        },
+        {
+            field: 'year',
+            headerName: 'Year',
+            width: 120,
+            editable: true,
+        },
+        {
+            field: 'limit',
+            headerName: 'Limit',
+            width: 100,
+            editable: true,
+        },
+        {
+            field: 'isShow',
+            headerName: 'isShow',
+            width: 120,
             editable: true,
         },
         {
@@ -50,12 +73,6 @@ const ProductList = () => {
             },
         },
         {
-            field: 'price',
-            headerName: 'Price',
-            sortable: true,
-            width: 160,
-        },
-        {
             field: 'action',
             headerName: 'Action',
             width: 140,
@@ -63,7 +80,7 @@ const ProductList = () => {
                 return (
                     <div className='flex items-center'>
                         <Link to={'/product/' + params.row.id}><span><Edit className='bg-blue-500 text-white border-none rounded-lg mr-3 !w-7 !h-7' /></span></Link>
-                        <span onClick={() => handleDelete(params.row.id)}><Delete className='bg-red-500 text-white border-none rounded-lg cursor-pointer !w-7 !h-7' /></span>
+                        <span onClick={() => handleDelete(params.row._id)}><Delete className='bg-red-500 text-white border-none rounded-lg cursor-pointer !w-7 !h-7' /></span>
                     </div>
                 );
             },
@@ -73,11 +90,11 @@ const ProductList = () => {
     return (
         <div className="flex-[6_6_0%]">
             <div className='p-5 flex justify-end'>
-                <button onClick={() => setOpen(true)} className="w-50 px-3 py-1 text-xl text-white border-none bg-green-600 rounded-lg cursor-pointer">Create New Product</button>
+                <button onClick={() => setOpen(true)} className="w-50 px-3 py-1 text-xl text-white border-none bg-green-600 rounded-lg cursor-pointer">Create New Movie</button>
                 {open && <NewProduct open={open} onClose={() => setOpen(false)} />}
             </div>
             <DataGrid
-                rows={data}
+                rows={movies}
                 columns={columns}
                 initialState={{
                     pagination: {
@@ -89,6 +106,7 @@ const ProductList = () => {
                 pageSizeOptions={[5, 10, 20]}
                 checkboxSelection
                 disableRowSelectionOnClick
+                getRowId={(row) => row._id}
             />
         </div>
     );

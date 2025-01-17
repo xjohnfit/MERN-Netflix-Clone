@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  //TODO enable this in production <StrictMode>
     <App />
-  </StrictMode>,
+  // </StrictMode>,
 )

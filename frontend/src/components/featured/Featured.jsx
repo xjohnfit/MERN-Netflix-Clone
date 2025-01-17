@@ -3,18 +3,18 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { get } from 'mongoose';
 
 const Featured = ({ type }) => {
     const [content, setContent] = useState({});
     useEffect(() => {
         const getRandomContent = async () => {
             try {
-                const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/random?type=${type}`, {
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/movies/random?type=${type}`, {
                     headers: {
-                        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2I5YTJlMTZhOWIyM2Y2MTE1MDc1MSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTczNTc2MjkyNywiZXhwIjoxNzM2MzY3NzI3fQ.8coiHnzP4LBETTLBcwb4T2Z_tPZdIFs9I-uSjct_7h8"
+                        token: import.meta.env.VITE_TOKEN,
                      } // pass token here);
                     });
-                    
                 setContent(res.data[0]);
             } catch (error) {
                 console.log(error);

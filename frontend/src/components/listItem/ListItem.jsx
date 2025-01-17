@@ -11,19 +11,16 @@ const ListItem = ({ index, item }) => {
 
   const [isHovered, setIsHovered] = useState(false);
   const [movie, setMovie] = useState({});
-  
+
 
   useEffect(() => {
-    
-    
     const getMovie = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/get/` + item, {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/movies/get/` + item, {
           headers: {
-            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2I5YTJlMTZhOWIyM2Y2MTE1MDc1MSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTczNTc2MjkyNywiZXhwIjoxNzM2MzY3NzI3fQ.8coiHnzP4LBETTLBcwb4T2Z_tPZdIFs9I-uSjct_7h8"
+            token: import.meta.env.VITE_TOKEN
           }
         });
-        console.log(res.data)
         setMovie(res.data);
       } catch (err) {
         console.log(err);
@@ -33,7 +30,7 @@ const ListItem = ({ index, item }) => {
   }, [item]);
 
   return (
-    <Link to={{pathname:"/watch"}}  state={ {movie} }>
+    <Link to={{ pathname: "/watch" }} state={{ movie }}>
       <div
         className="listItem"
         style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}

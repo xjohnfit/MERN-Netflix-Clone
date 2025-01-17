@@ -1,6 +1,19 @@
-import {NotificationsNone, Language, Settings} from '@mui/icons-material';
+import { NotificationsNone, Language, Settings, Logout } from '@mui/icons-material';
+import { useContext } from "react";
+import { AuthContext } from "./context/authContext/authContext";
+import { logout } from './context/authContext/authActions';
 
 const Header = () => {
+
+    const { user } = useContext(AuthContext);
+
+    const {loading, dispatch} = useContext(AuthContext);
+
+    const handleLogout = () => {
+        dispatch(logout());
+    };
+
+
     return (
         <div className="w-full h-[50px] bg-white sticky top-0 z-50 shadow-md">
             <div className="h-full p-5 flex items-center justify-between">
@@ -18,7 +31,8 @@ const Header = () => {
                     <div className="relative mr-3 text-gray-500">
                         <Settings className="cursor-pointer" />
                     </div>
-                    <img src="/src/assets/headshot.jpg" alt="Avatar" className='w-10 h-10 rounded-[50%] cursor-pointer' />
+                        <img src={user.user.profilePic} alt="Avatar" className='w-10 h-10 rounded-[50%] cursor-pointer' />
+                        <button className='ml-3' title='Logout' onClick={handleLogout}><Logout /></button>
                 </div>
             </div>
         </div>
