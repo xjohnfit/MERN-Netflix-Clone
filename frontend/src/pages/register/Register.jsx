@@ -1,20 +1,36 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './register.scss';
 
 const Register = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("");
+    
+    const navigate = useNavigate();
 
     const emailRef = useRef();
     const passwordRef = useRef();
+    const usernameRef = useRef();
 
     const handleStart = () => {
         setEmail(emailRef.current.value);
     };
 
-    const handleFinish = () => {
+    const handleFinish = async (e) => {
+        e.preventDefault();
         setPassword(passwordRef.current.value);
+        setUsername(usernameRef.current.value);
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, { email, username, password });
+            navigate("/login");
+        } catch (error) {
+            console.log(error);
+
+        }
+
     };
 
     return (
@@ -45,17 +61,18 @@ const Register = () => {
                         />
                         <button className="registerButton" onClick={handleStart}>Get Started</button>
                     </div>) : (
-                        <div className="input">
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            ref={passwordRef}
-                        />
-                        <button className="registerButton" onClick={handleFinish}>Start Membership</button>
-                    </div>
+                        <form className="input">
+                            <input type="text" placeholder='Username' ref={usernameRef} />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                ref={passwordRef}
+                            />
+                            <button className="registerButton" onClick={handleFinish}>Start Membership</button>
+                        </form>
                     )
                 }
-                
+
             </div>
         </div>
     );

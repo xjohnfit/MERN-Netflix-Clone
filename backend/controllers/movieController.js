@@ -69,6 +69,7 @@ const getRandomMovie = async (req, res) => {
 
 // Update movie
 const updateMovie = async (req, res) => {
+    console.log(req)
     const { id } = req.params;
     if (req.user.isAdmin) {
         try {
@@ -93,11 +94,12 @@ const deleteMovie = async (req, res) => {
         try {
             await MovieModel.findByIdAndDelete(id);
             res.status(200).json({ success: true, message: 'Movie deleted' });
-        } catch (err) {}
-        res.status(500).json({
-            success: false,
-            message: 'Error deleting movie',
-        });
+        } catch (err) {
+            res.status(500).json({
+                success: false,
+                message: 'Error deleting movie',
+            });
+        }
     }
 };
 

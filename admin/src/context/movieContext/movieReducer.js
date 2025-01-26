@@ -18,6 +18,8 @@ const MovieReducer = (state, action) => {
           isFetching: false,
           error: true,
         };
+
+      //CREATE MOVIE REDUCER
       case "CREATE_MOVIE_START":
         return {
           ...state,

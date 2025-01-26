@@ -31,7 +31,7 @@ const Home = () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/users/stats`,{
           headers: {
-            token: import.meta.env.VITE_TOKEN
+            token: "Bearer " + JSON.parse(localStorage.getItem("user")).token,
           }
         });
 
@@ -39,9 +39,6 @@ const Home = () => {
           return a._id - b._id;
         });
         statsList.map(item=>setUsersStats(prev=>[...prev, {name: months[item._id - 1], "Total User": item.total}]))
-
-        //TODO: CHECK WHY IT IS DISPLAYING DOUBLE DATA IN CHART WHEN MAPPING
-        // console.log(statsList.map(item=>setUsersStats(prev=>[...prev, {name: months[item._id - 1], "Total User": item.total}])))
       } catch (error) {
         console.log(error);
       }

@@ -32,7 +32,7 @@ const ListItem = ({ index, item }) => {
   return (
     <Link to={{ pathname: "/watch" }} state={{ movie }}>
       <div
-        className="listItem"
+        className="listItem ml-5"
         style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

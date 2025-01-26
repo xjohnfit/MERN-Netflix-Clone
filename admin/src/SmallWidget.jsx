@@ -12,7 +12,7 @@ const SmallWidget = () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/users?new=true`, {
                     headers: {
-                        token: import.meta.env.VITE_TOKEN
+                        token: "Bearer " + JSON.parse(localStorage.getItem("user")).token,
                     }
                 });
                 setNewUsers(response.data.users);

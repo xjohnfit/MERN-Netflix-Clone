@@ -1,15 +1,22 @@
-import Header from "./Header";
-import Home from "./Home";
-import Sidebar from "./Sidebar";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import UserList from "./UserList";
-import User from "./User";
-import ProductList from "./ProductList";
-import Product from "./Product";
-import Login from "./Login";
 import { Navigate } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext/authContext";
+
+import Header from "./Header";
+import Home from "./Home";
+import Sidebar from "./Sidebar";
+
+import User from "./User";
+import UserList from "./UserList";
+import Login from "./Login";
+
+import MoviesList from "./movies/MoviesList";
+import EditMovie from "./movies/EditMovie";
+
+import Lists from "./lists/Lists";
+import EditList from './lists/EditList';
+
 
 export default function App() {
 
@@ -27,19 +34,14 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={user ? <Home /> : <Navigate to="/login" />}></Route>
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />}></Route>
+          <Route path="/users" element={user ? <UserList /> : <Navigate to="/login" />}></Route>
+          <Route path="/user/:userId" element={user ? <User /> : <Navigate to="/login" />}></Route>
 
-          {user &&
+          <Route path="/movies" element={user ? <MoviesList /> : <Navigate to="/login" />}></Route>
+          <Route path="/edit/:movieId" element={user ? <EditMovie /> : <Navigate to="/login" />}></Route>
 
-            (
-              <>
-                <Route path="/users" element={<UserList />}></Route>
-                <Route path="/user/:userId" element={<User />}></Route>
-                <Route path="/movies" element={<ProductList />}></Route>
-                <Route path="/product/:productId" element={<Product />}></Route>
-              </>
-            )
-
-          }
+          <Route path="/lists" element={user ? <Lists /> : <Navigate to="/login" />}></Route>
+          <Route path="/list/:listId" element={user ? <EditList /> : <Navigate to="/login" />}></Route>
         </Routes>
       </div>
     </BrowserRouter>

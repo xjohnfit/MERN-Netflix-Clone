@@ -16,7 +16,7 @@ const MovieSchema = new mongoose.Schema(
         imgTitle: {
             type: String,
         },
-        imgSlider: {
+        imgThumbnail: {
             type: String,
         },
         trailer: {
@@ -31,10 +31,17 @@ const MovieSchema = new mongoose.Schema(
         limit: {
             type: Number,
         },
+        duration: {
+            type: String,
+        },
         genre: {
             type: String,
         },
         isShow: {
+            type: Boolean,
+            default: false,
+        },
+        status: {
             type: Boolean,
             default: false,
         },

@@ -4,12 +4,15 @@ import './index.css';
 import App from './App.jsx';
 import { AuthContextProvider } from './context/authContext/authContext.jsx';
 import { MovieContextProvider } from './context/movieContext/MovieContext.jsx';
+import { ListContextProvider } from './context/listContext/ListContext.jsx';
 
 createRoot(document.getElementById('root')).render(
-  // <StrictMode> Enable React strict mode in production
+  //TODO <StrictMode> Enable React strict mode in production
     <AuthContextProvider>
       <MovieContextProvider>
-        <App />
+        <ListContextProvider>
+          <App />
+        </ListContextProvider>
       </MovieContextProvider>
     </AuthContextProvider>
   // </StrictMode>,

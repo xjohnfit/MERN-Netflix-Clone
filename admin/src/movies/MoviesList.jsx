@@ -1,23 +1,22 @@
 import { Link } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { Edit, Delete } from '@mui/icons-material';
-import { productRows } from './seeds/dummyData';
 import { useContext, useEffect, useState } from 'react';
-import NewProduct from './NewProduct';
-import { MovieContext } from './context/movieContext/MovieContext';
-import { deleteMovie, getMovies } from './context/movieContext/movieApiControllers';
+import NewProduct from './NewMovie';
+import { MovieContext } from '../context/movieContext/MovieContext';
+import { deleteMovie, getMovies } from '../context/movieContext/MovieApiControllers';
 
-const ProductList = () => {
+const MoviesList = () => {
     const [open, setOpen] = useState(false);
     const { movies, dispatch } = useContext(MovieContext);
 
     useEffect(() => {
         getMovies(dispatch);
-      }, [dispatch]);
-    
-      const handleDelete = (id) => {
+    }, [dispatch]);
+
+    const handleDelete = (id) => {
         deleteMovie(id, dispatch);
-      };
+    };
 
     const columns = [
         { field: '_id', headerName: 'ID', width: 210 },
@@ -65,7 +64,7 @@ const ProductList = () => {
             width: 120,
             editable: true,
             renderCell: (params) => {
-                if (params.row.status === 'active') {
+                if (params.row.status === true) {
                     return <span className='bg-green-500 text-white border-none rounded-lg py-1 px-3'>Active</span>;
                 } else {
                     return <span className='bg-red-500 text-white border-none rounded-lg py-1 px-3'>Inactive</span>;
@@ -79,7 +78,7 @@ const ProductList = () => {
             renderCell: (params) => {
                 return (
                     <div className='flex items-center'>
-                        <Link to={'/product/' + params.row.id}><span><Edit className='bg-blue-500 text-white border-none rounded-lg mr-3 !w-7 !h-7' /></span></Link>
+                        <Link to={`/edit/${params.row._id}`} state={{ movie: params.row }}><Edit className='bg-blue-500 text-white border-none rounded-lg mr-3 !w-7 !h-7' /></Link>
                         <span onClick={() => handleDelete(params.row._id)}><Delete className='bg-red-500 text-white border-none rounded-lg cursor-pointer !w-7 !h-7' /></span>
                     </div>
                 );
@@ -111,4 +110,4 @@ const ProductList = () => {
         </div>
     );
 };
-export default ProductList;
+export default MoviesList;

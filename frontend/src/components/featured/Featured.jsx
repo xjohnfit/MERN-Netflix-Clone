@@ -3,9 +3,8 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { get } from 'mongoose';
 
-const Featured = ({ type }) => {
+const Featured = ({ type, setGenre }) => {
     const [content, setContent] = useState({});
     useEffect(() => {
         const getRandomContent = async () => {
@@ -13,8 +12,8 @@ const Featured = ({ type }) => {
                 const res = await axios.get(`${import.meta.env.VITE_API_URL}/movies/random?type=${type}`, {
                     headers: {
                         token: import.meta.env.VITE_TOKEN,
-                     } // pass token here);
-                    });
+                    } // pass token here);
+                });
                 setContent(res.data[0]);
             } catch (error) {
                 console.log(error);
@@ -29,36 +28,45 @@ const Featured = ({ type }) => {
                 <div className="category">
                     <span>{type === 'movie' ? 'Movies' : 'Shows'}</span>
                     <select
+                        defaultValue={'default'}
                         name="genre"
                         id="genre"
+                        onChange={(e) => setGenre(e.target.value)}
                     >
-                        <option>Genre</option>
-                        <option value="adventure">Adventure</option>
-                        <option value="comedy">Comedy</option>
-                        <option value="crime">Crime</option>
-                        <option value="fantasy">Fantasy</option>
-                        <option value="historical">Historical</option>
-                        <option value="horror">Horror</option>
-                        <option value="romance">Romance</option>
-                        <option value="sci-fi">Sci-fi</option>
-                        <option value="thriller">Thriller</option>
-                        <option value="western">Western</option>
-                        <option value="animation">Animation</option>
-                        <option value="drama">Drama</option>
-                        <option value="documentary">Documentary</option>
+                        <option value="default" disabled>Genre</option>
+                        <option value="Adventure">Adventure</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Crime">Crime</option>
+                        <option value="Fantasy">Fantasy</option>
+                        <option value="Historical">Historical</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Sci-Fi">Sci-fi</option>
+                        <option value="Thriller">Thriller</option>
+                        <option value="Western">Western</option>
+                        <option value="Animation">Animation</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Documentary">Documentary</option>
                     </select>
                 </div>
             )}
             <img
+                className=''
                 src={content.img}
                 alt=""
             />
             <div className="info">
-                <img
-                    src={content.imgTitle}
-                    alt=""
-                />
-                <span className="desc">
+                {
+                    content.imgTitle && (
+                        <img
+                            className='w-[40vw]'
+                            src={content.imgTitle}
+                            alt="Image Title"
+                        />
+                    )
+                }
+
+                <span className="desc w-[40vw]">
                     {content.desc}
                 </span>
 

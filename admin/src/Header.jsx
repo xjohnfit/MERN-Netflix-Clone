@@ -1,5 +1,6 @@
 import { NotificationsNone, Language, Settings, Logout } from '@mui/icons-material';
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "./context/authContext/authContext";
 import { logout } from './context/authContext/authActions';
 
@@ -18,7 +19,9 @@ const Header = () => {
         <div className="w-full h-[50px] bg-white sticky top-0 z-50 shadow-md">
             <div className="h-full p-5 flex items-center justify-between">
                 <div className="">
+                    <Link to='/'>
                     <span className="font-bold text-3xl text-red-700 cursor-pointer"> Netflix Admin Panel</span>
+                    </Link>
                 </div>
                 <div className="flex items-center">
                     <div className="relative mr-3 text-gray-500">

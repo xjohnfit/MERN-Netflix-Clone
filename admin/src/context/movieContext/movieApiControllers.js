@@ -29,7 +29,7 @@ export const getMovies = async (dispatch) => {
 export const createMovie = async (movie, dispatch) => {
   dispatch(createMovieStart());
   try {
-    const res = await axios.post("/movies", movie, {
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}/movies/create`, movie, {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).token,
       },
@@ -44,7 +44,7 @@ export const createMovie = async (movie, dispatch) => {
 export const deleteMovie = async (id, dispatch) => {
   dispatch(deleteMovieStart());
   try {
-    await axios.delete(`${import.meta.env.VITE_API_URL}/movies/delete/${id}`, {
+    const res = await axios.delete(`${import.meta.env.VITE_API_URL}/movies/delete/${id}`, {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).token,
       },

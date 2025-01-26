@@ -7,6 +7,7 @@ import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutl
 const List = ({list}) => {
     const [slideNumber, setSlideNumber] = useState(0);
     const [isMoved, setIsMoved] = useState(false);
+    const [clickLimit, setClickLimit] = useState(window.innerWidth / 230);
 
     const listRef = useRef();
 
@@ -17,7 +18,7 @@ const List = ({list}) => {
             setSlideNumber(slideNumber - 1);
             listRef.current.style.transform = `translateX(${230 + distance}px)`; // 230px is the width of the list item
         }
-        if (direction === 'right' && slideNumber < 5) {
+        if (direction === 'right' && slideNumber < 10 - clickLimit) {
             setSlideNumber(slideNumber + 1);
             listRef.current.style.transform = `translateX(${
                 -230 + distance
@@ -35,7 +36,7 @@ const List = ({list}) => {
                     style={{ display: !isMoved && 'none' }}
                 />
                 <div
-                    className="containerList"
+                    className="containerList p-5"
                     ref={listRef}
                 >
                     {list.content.map((item, i) => (

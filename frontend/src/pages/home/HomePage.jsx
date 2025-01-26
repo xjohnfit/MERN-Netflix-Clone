@@ -10,11 +10,7 @@ const HomePage = ({type}) => {
     const [genre, setGenre] = useState(null);
 
     useEffect(() => {
-        const getRandomLists = async () => {
-
-            // let tokenA = localStorage.getItem("token").token;
-            // console.log(tokenA);
-            
+        const getRandomLists = async () => {           
             try {
                 const res = await axios.get(`${import.meta.env.VITE_API_URL}/lists${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""}`, {
                     headers: {
@@ -32,7 +28,7 @@ const HomePage = ({type}) => {
     return (
         <div className="home">
             <Navbar />
-            <Featured type={type} />
+            <Featured type={type} setGenre={setGenre} />
             {lists.map((list) => (
                 <List key={list._id} list={list} />
             ))}

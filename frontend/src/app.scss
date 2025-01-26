@@ -5,3 +5,15 @@
 :root {
     --main-color: rgb(11, 11, 11);
 }
+
+@mixin tablet {
+    @media(max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media(max-width: 480px) {
+        @content;
+    }
+}

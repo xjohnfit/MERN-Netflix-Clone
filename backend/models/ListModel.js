@@ -13,6 +13,10 @@ const ListSchema = new mongoose.Schema(
         genre: {
             type: String,
         },
+        status: {
+            type: Boolean,
+            default: true,
+        },
         content: {
             type: Array,
         }
