@@ -1,30 +1,41 @@
 import { Link } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { Edit, Delete } from '@mui/icons-material';
-import { userRows } from './seeds/dummyData';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
 import NewUser from './NewUser';
 
-const UserList = () => {
+import { UserContext } from '../context/userContext/UserContext';
+import { getUsers } from '../context/userContext/UserApiControllers';
 
-    const [data, setData] = useState(userRows);
+const UserList = () => {
+    
     const [open, setOpen] = useState(false);
+    const { users, dispatch } = useContext(UserContext);
+
+    useEffect(() => {
+        getUsers(dispatch);
+    }, [dispatch]);
 
     const handleDelete = (id) => {
         setData(data.filter((item) => item.id !== id));
     };
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 90 },
+        { 
+            field: '_id', 
+            headerName: 'ID', 
+            width: 210
+        },
         {
-            field: 'user',
-            headerName: 'User',
-            width: 250,
+            field: 'username',
+            headerName: 'Username',
+            width: 300,
             editable: true,
             renderCell: (params) => {
                 return (
                     <div className='flex items-center'>
-                        <img className='w-10 h-10 rounded-full object-cover mr-3' src={params.row.avatar} alt="Avatar" />
+                        <img className='w-10 h-10 rounded-full object-cover mr-3' src={params.row.profilePic} alt="Profile Pic" />
                         {params.row.username}
                     </div>
                 );
@@ -33,27 +44,21 @@ const UserList = () => {
         {
             field: 'email',
             headerName: 'E-mail',
-            width: 250,
+            width: 300,
             editable: true,
         },
         {
-            field: 'status',
-            headerName: 'Status',
+            field: 'isAdmin',
+            headerName: 'Admin',
             width: 120,
             editable: true,
             renderCell: (params) => {
-                if (params.row.status === 'active') {
-                    return <span className='bg-green-500 text-white border-none rounded-lg py-1 px-3'>Active</span>;
+                if (params.row.isAdmin === true) {
+                    return <span className='bg-green-500 text-white border-none rounded-lg py-1 px-3'>Yes</span>;
                 } else {
-                    return <span className='bg-red-500 text-white border-none rounded-lg py-1 px-3'>Inactive</span>;
+                    return <span className='bg-red-500 text-white border-none rounded-lg py-1 px-3'>No</span>;
                 }
             },
-        },
-        {
-            field: 'transaction',
-            headerName: 'Transaction',
-            sortable: true,
-            width: 160,
         },
         {
             field: 'action',
@@ -62,8 +67,8 @@ const UserList = () => {
             renderCell: (params) => {
                 return (
                     <div className='flex items-center'>
-                        <Link to={'/user/' + params.row.id}><span><Edit className='bg-blue-500 text-white border-none rounded-lg mr-3 !w-7 !h-7' /></span></Link>
-                        <span onClick={() => handleDelete(params.row.id)}><Delete className='bg-red-500 text-white border-none rounded-lg cursor-pointer !w-7 !h-7' /></span>
+                        <Link to={'/user/' + params.row._id}><span><Edit className='bg-blue-500 text-white border-none rounded-lg mr-3 !w-7 !h-7' /></span></Link>
+                        <span onClick={() => handleDelete(params.row._id)}><Delete className='bg-red-500 text-white border-none rounded-lg cursor-pointer !w-7 !h-7' /></span>
                     </div>
                 );
             },
@@ -81,7 +86,7 @@ const UserList = () => {
             </div>
                 <DataGrid
                     className='flex-1'
-                    rows={data}
+                    rows={users}
                     columns={columns}
                     initialState={{
                         pagination: {
@@ -93,6 +98,7 @@ const UserList = () => {
                     pageSizeOptions={[5, 10, 20]}
                     checkboxSelection
                     disableRowSelectionOnClick
+                    getRowId={(row) => row._id}
                 />
         </div>
     );

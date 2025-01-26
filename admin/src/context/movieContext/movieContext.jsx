@@ -1,5 +1,5 @@
-import MovieReducer from "./MovieReducer";
 import { createContext, useReducer } from "react";
+import MovieReducer from "./MovieReducer";
 
 const INITIAL_STATE = {
   movies: [],

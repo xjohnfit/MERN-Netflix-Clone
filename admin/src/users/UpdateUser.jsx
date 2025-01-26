@@ -1,6 +1,6 @@
 import { CalendarToday, LocationOn, MailOutline, PermIdentity, PhoneAndroid, FileUpload } from '@mui/icons-material';
 
-const User = () => {
+const UpdateUser = () => {
   return (
     <div className="flex-[6_6_0%] p-5">
 
@@ -80,4 +80,4 @@ const User = () => {
     </div>
   );
 };
-export default User;
+export default UpdateUser;

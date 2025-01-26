@@ -2,7 +2,7 @@ import { FileUpload } from "@mui/icons-material";
 import { useContext, useEffect, useState } from "react";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { createMovie } from "../context/movieContext/movieApiControllers";
+import { createMovie } from "../context/movieContext/MovieApiControllers";
 import { MovieContext } from "../context/movieContext/MovieContext";
 
 const NewMovie = ({ open, onClose }) => {

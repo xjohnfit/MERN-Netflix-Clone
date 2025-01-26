@@ -1,8 +1,11 @@
+import { useContext, useEffect, useState } from 'react';
+
 import { Link } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { Edit, Delete } from '@mui/icons-material';
-import { useContext, useEffect, useState } from 'react';
-import NewProduct from './NewMovie';
+
+import NewMovie from './NewMovie';
+
 import { MovieContext } from '../context/movieContext/MovieContext';
 import { deleteMovie, getMovies } from '../context/movieContext/MovieApiControllers';
 
@@ -19,7 +22,11 @@ const MoviesList = () => {
     };
 
     const columns = [
-        { field: '_id', headerName: 'ID', width: 210 },
+        { 
+            field: '_id', 
+            headerName: 'ID', 
+            width: 210 
+        },
         {
             field: 'movie',
             headerName: 'Movie',
@@ -90,7 +97,7 @@ const MoviesList = () => {
         <div className="flex-[6_6_0%]">
             <div className='p-5 flex justify-end'>
                 <button onClick={() => setOpen(true)} className="w-50 px-3 py-1 text-xl text-white border-none bg-green-600 rounded-lg cursor-pointer">Create New Movie</button>
-                {open && <NewProduct open={open} onClose={() => setOpen(false)} />}
+                {open && <NewMovie open={open} onClose={() => setOpen(false)} />}
             </div>
             <DataGrid
                 rows={movies}
