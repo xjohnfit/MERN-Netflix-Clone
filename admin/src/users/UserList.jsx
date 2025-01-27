@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
-import { Edit, Delete } from '@mui/icons-material';
+import { Edit, Delete, Person } from '@mui/icons-material';
 import { useContext, useEffect, useState } from 'react';
 
 import NewUser from './NewUser';
@@ -29,14 +29,14 @@ const UserList = () => {
         },
         {
             field: 'username',
-            headerName: 'Username',
+            headerName: 'User',
             width: 300,
             editable: true,
             renderCell: (params) => {
                 return (
                     <div className='flex items-center'>
-                        <img className='w-10 h-10 rounded-full object-cover mr-3' src={params.row.profilePic} alt="Profile Pic" />
-                        {params.row.username}
+                        {params.row.profilePic != '' ? <img className='w-10 h-10 object-cover rounded-full mr-2' src={params.row.profilePic} alt='profile' /> : <Person className='!w-10 !h-10 !object-cover !rounded-full !mr-2 !fill-slate-300' />}
+                        {params.row.fullName}
                     </div>
                 );
             },

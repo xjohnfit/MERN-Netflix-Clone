@@ -100,6 +100,11 @@ const login = async (req, res) => {
                     message: 'Invalid credentials',
                 });
             }
+        } else {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found',
+            });
         }
         
     } catch (error) {

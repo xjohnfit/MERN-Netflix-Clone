@@ -1,6 +1,6 @@
 import './login.scss';
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../../authContext/authController';
 import { AuthContext } from '../../authContext/AuthContext';
 
@@ -34,7 +34,7 @@ const Login = () => {
                     <input type="password" placeholder="Password" autoComplete='current-password' onChange={(e) => setPassword(e.target.value)} />
                     <button className="loginButton" onClick={handleLogin}>Sign In</button>
                     <span>
-                        New to Netflix? <b>Sign up now.</b>
+                        New to Netflix? <Link to='/'><b>Sign up now.</b></Link>
                     </span>
                     <small>
                         This page is protected by Google reCAPTCHA to ensure you're not a bot. <b>Learn more</b>.

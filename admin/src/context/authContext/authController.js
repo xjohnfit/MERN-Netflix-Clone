@@ -7,7 +7,7 @@ export const login = async (user, dispatch) => {
         const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, user);
         res.data.user.isAdmin && dispatch(loginSuccess(res.data));
     } catch (error) {
-        dispatch(loginError());
+        dispatch(loginError(error.response.data.message));
     }
 };
 
