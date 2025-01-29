@@ -38,7 +38,7 @@ const ListItem = ({ index, item }) => {
         onMouseLeave={() => setIsHovered(false)}
       >
         <img
-          src={movie.img}
+          src={movie?.img}
         />
         {isHovered && (
           <>

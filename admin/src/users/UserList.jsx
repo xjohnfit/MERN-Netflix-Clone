@@ -35,7 +35,7 @@ const UserList = () => {
             renderCell: (params) => {
                 return (
                     <div className='flex items-center'>
-                        {params.row.profilePic != '' ? <img className='w-10 h-10 object-cover rounded-full mr-2' src={params.row.profilePic} alt='profile' /> : <Person className='!w-10 !h-10 !object-cover !rounded-full !mr-2 !fill-slate-300' />}
+                        {params.row.profilePic != '' ? <img className='w-10 h-10 object-cover rounded-full mr-2' src={params.row.profilePic} alt='profile' /> : <Person className='!w-10 !h-12 !object-cover !rounded-full !mr-2 !fill-slate-300' />}
                         {params.row.fullName}
                     </div>
                 );
@@ -67,16 +67,13 @@ const UserList = () => {
             renderCell: (params) => {
                 return (
                     <div className='flex items-center'>
-                        <Link to={'/user/' + params.row._id}><span><Edit className='bg-blue-500 text-white border-none rounded-lg mr-3 !w-7 !h-7' /></span></Link>
+                        <Link to={'/user/' + params.row._id} state={{ user: params.row }}><span><Edit className='bg-blue-500 text-white border-none rounded-lg mr-3 !w-7 !h-7' /></span></Link>
                         <span onClick={() => handleDelete(params.row._id)}><Delete className='bg-red-500 text-white border-none rounded-lg cursor-pointer !w-7 !h-7' /></span>
                     </div>
                 );
             },
         }
     ];
-
-
-
     return (
         
         <div className="flex-[6_6_0%]">

@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
-import { useNavigate, Link} from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './register.scss';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Register = () => {
 
@@ -21,20 +22,30 @@ const Register = () => {
 
     const handleFinish = async (e) => {
         e.preventDefault();
-        setPassword(passwordRef.current.value);
         setUsername(usernameRef.current.value);
+        setPassword(passwordRef.current.value);
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, { email, username, password });
-            navigate("/login");
+            await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, { username, email, password });
+            toast.success('Registration successful');
+            setTimeout(() => {
+                navigate("/login");
+            }, 2000);
         } catch (error) {
-            console.log(error);
-
+            toast.error(error.response.data.message);
         }
 
     };
 
     return (
         <div className="register">
+            <Toaster toastOptions={{
+                style: {
+                    fontSize: '14px',
+                    padding: '10px 20px',
+                    color: '#fff',
+                    background: '#333',
+                },
+            }} />
             <div className="top">
                 <div className="wrapper">
                     <img
@@ -66,11 +77,17 @@ const Register = () => {
                         <button className="registerButton" onClick={handleStart}>Get Started</button>
                     </div>) : (
                         <form className="input">
-                            <input type="text" placeholder='Username' ref={usernameRef} />
+                            <input
+                                type="text"
+                                placeholder='Username'
+                                ref={usernameRef}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
                             <input
                                 type="password"
                                 placeholder="Password"
                                 ref={passwordRef}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                             <button className="registerButton" onClick={handleFinish}>Start Membership</button>
                         </form>

@@ -1,4 +1,4 @@
-import { NotificationsNone, Language, Settings, Logout } from '@mui/icons-material';
+import { NotificationsNone, Language, Settings, Logout, Person } from '@mui/icons-material';
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "./context/authContext/authContext";
@@ -34,7 +34,7 @@ const Header = () => {
                     <div className="relative mr-3 text-gray-500">
                         <Settings className="cursor-pointer" />
                     </div>
-                        <img src={user.user.profilePic} alt="Avatar" className='w-10 h-10 rounded-[50%] cursor-pointer' />
+                        {user.user.profilePic != '' ? <img className='w-10 h-10 object-cover rounded-full mr-2' src={user.user.profilePic} alt='profile' /> : <Person className='!w-10 !h-12 !object-cover !rounded-full !mr-2 !fill-slate-500' />}
                         <button className='ml-3' title='Logout' onClick={handleLogout}><Logout /></button>
                 </div>
             </div>

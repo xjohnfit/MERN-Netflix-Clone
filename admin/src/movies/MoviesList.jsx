@@ -1,31 +1,39 @@
 import { useContext, useEffect, useState } from 'react';
-
 import { Link } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { Edit, Delete } from '@mui/icons-material';
+import toast, { Toaster } from 'react-hot-toast';
 
 import NewMovie from './NewMovie';
 
 import { MovieContext } from '../context/movieContext/MovieContext';
-import { deleteMovie, getMovies } from '../context/movieContext/MovieApiControllers';
+import {
+    deleteMovie,
+    getMovies,
+} from '../context/movieContext/MovieApiControllers';
 
 const MoviesList = () => {
     const [open, setOpen] = useState(false);
-    const { movies, dispatch } = useContext(MovieContext);
+    const { movies, dispatch, message, error } = useContext(MovieContext);
 
     useEffect(() => {
         getMovies(dispatch);
-    }, [dispatch]);
+        if (message) {
+            toast.success(message);
+        } else if (error) {
+            toast.error(error);
+        }
+    }, [dispatch, message, error]);
 
     const handleDelete = (id) => {
         deleteMovie(id, dispatch);
     };
 
     const columns = [
-        { 
-            field: '_id', 
-            headerName: 'ID', 
-            width: 210 
+        {
+            field: '_id',
+            headerName: 'ID',
+            width: 210,
         },
         {
             field: 'movie',
@@ -34,8 +42,12 @@ const MoviesList = () => {
             editable: true,
             renderCell: (params) => {
                 return (
-                    <div className='flex items-center'>
-                        <img className='w-10 h-10 rounded-full object-cover mr-3' src={params.row.img} alt="Image" />
+                    <div className="flex items-center">
+                        <img
+                            className="w-10 h-10 rounded-full object-cover mr-3"
+                            src={params.row.img}
+                            alt="Image"
+                        />
                         {params.row.title}
                     </div>
                 );
@@ -72,9 +84,17 @@ const MoviesList = () => {
             editable: true,
             renderCell: (params) => {
                 if (params.row.status === true) {
-                    return <span className='bg-green-500 text-white border-none rounded-lg py-1 px-3'>Active</span>;
+                    return (
+                        <span className="bg-green-500 text-white border-none rounded-lg py-1 px-3">
+                            Active
+                        </span>
+                    );
                 } else {
-                    return <span className='bg-red-500 text-white border-none rounded-lg py-1 px-3'>Inactive</span>;
+                    return (
+                        <span className="bg-red-500 text-white border-none rounded-lg py-1 px-3">
+                            Inactive
+                        </span>
+                    );
                 }
             },
         },
@@ -84,36 +104,66 @@ const MoviesList = () => {
             width: 140,
             renderCell: (params) => {
                 return (
-                    <div className='flex items-center'>
-                        <Link to={`/edit/${params.row._id}`} state={{ movie: params.row }}><Edit className='bg-blue-500 text-white border-none rounded-lg mr-3 !w-7 !h-7' /></Link>
-                        <span onClick={() => handleDelete(params.row._id)}><Delete className='bg-red-500 text-white border-none rounded-lg cursor-pointer !w-7 !h-7' /></span>
+                    <div className="flex items-center">
+                        <Link
+                            to={`/edit/${params.row._id}`}
+                            state={{ movie: params.row }}
+                        >
+                            <Edit className="bg-blue-500 text-white border-none rounded-lg mr-3 !w-7 !h-7" />
+                        </Link>
+                        <span onClick={() => handleDelete(params.row._id)}>
+                            <Delete className="bg-red-500 text-white border-none rounded-lg cursor-pointer !w-7 !h-7" />
+                        </span>
                     </div>
                 );
             },
-        }
+        },
     ];
 
     return (
         <div className="flex-[6_6_0%]">
-            <div className='p-5 flex justify-end'>
-                <button onClick={() => setOpen(true)} className="w-50 px-3 py-1 text-xl text-white border-none bg-green-600 rounded-lg cursor-pointer">Create New Movie</button>
-                {open && <NewMovie open={open} onClose={() => setOpen(false)} />}
-            </div>
-            <DataGrid
-                rows={movies}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                        paginationModel: {
-                            pageSize: 20,
-                        },
+            <Toaster
+                position="bottom-left"
+                toastOptions={{
+                    style: {
+                        fontSize: '16px',
+                        padding: '15px 25px',
+                        color: '#fff',
+                        background: '#333',
                     },
                 }}
-                pageSizeOptions={[5, 10, 20]}
-                checkboxSelection
-                disableRowSelectionOnClick
-                getRowId={(row) => row._id}
             />
+            <div className="p-5 flex justify-end">
+                <button
+                    onClick={() => setOpen(true)}
+                    className="w-50 px-3 py-1 text-xl text-white border-none bg-green-600 rounded-lg cursor-pointer"
+                >
+                    Create New Movie
+                </button>
+                {open && (
+                    <NewMovie
+                        open={open}
+                        onClose={() => setOpen(false)}
+                    />
+                )}
+            </div>
+            <div className="px-5">
+                <DataGrid
+                    rows={movies}
+                    columns={columns}
+                    initialState={{
+                        pagination: {
+                            paginationModel: {
+                                pageSize: 20,
+                            },
+                        },
+                    }}
+                    pageSizeOptions={[5, 10, 20]}
+                    checkboxSelection
+                    disableRowSelectionOnClick
+                    getRowId={(row) => row._id}
+                />
+            </div>
         </div>
     );
 };

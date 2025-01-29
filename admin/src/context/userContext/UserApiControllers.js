@@ -37,3 +37,23 @@ export const createUser = async (user, dispatch) => {
         dispatch(getUsersFailure());
     }
 };
+
+// Get user by ID
+export const getUserById = async (id, dispatch) => {
+    dispatch(getUsersStart());
+    try {
+        const res = await axios.get(
+            `${import.meta.env.VITE_API_URL}/users/find/${id}`,
+            {
+                headers: {
+                    token:
+                        'Bearer ' +
+                        JSON.parse(localStorage.getItem('user')).token,
+                },
+            }
+        );
+        dispatch(getUsersSuccess(res.data));
+    } catch (err) {
+        dispatch(getUsersFailure());
+    }
+};

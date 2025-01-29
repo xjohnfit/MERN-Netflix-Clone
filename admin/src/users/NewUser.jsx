@@ -5,6 +5,7 @@ import { storage } from "../firebase";
 import { createUser } from "../context/userContext/UserApiControllers";
 import { UserContext } from "../context/userContext/UserContext";
 import { useContext } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 const NewUser = ({ open, onClose }) => {
 
@@ -45,10 +46,27 @@ const NewUser = ({ open, onClose }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         createUser(user, dispatch);
+
+        if (handleSubmit) {
+            toast.success('List created successfully');
+            setTimeout(() => {
+                onClose();
+            }, 2000);
+        } else {
+            toast.error('Failed to create list');
+        }
     };
 
     return (
         <div onClick={onClose} className={`fixed z-10 inset-0 flex justify-center items-center transition-colors${open ? "visible bg-black/50" : "invisible"}`}>
+            <Toaster toastOptions={{
+                style: {
+                    fontSize: '14px',
+                    padding: '10px 20px',
+                    color: '#fff',
+                    background: '#333',
+                },
+            }} />
             <div onClick={(e) => e.stopPropagation()} className={`bg-white p-10 rounded-xl shadow transition-all ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"} w-fit`}>
                 <div>
                     <button onClick={onClose} className="absolute text-xl top-2 right-4 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600">X</button>

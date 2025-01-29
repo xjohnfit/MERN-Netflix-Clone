@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "./context/authContext/authContext";
 import { login } from "./context/authContext/authController";
 import toast, { Toaster } from 'react-hot-toast';
-import { useEffect } from "react";
 
 const Login = () => {
 

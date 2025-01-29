@@ -16,7 +16,7 @@ const MovieReducer = (state, action) => {
         return {
           movies: [],
           isFetching: false,
-          error: true,
+          error: false,
         };
 
       //CREATE MOVIE REDUCER
@@ -31,12 +31,13 @@ const MovieReducer = (state, action) => {
           movies: [...state.movies, action.payload],
           isFetching: false,
           error: false,
+          message: action.message,
         };
       case "CREATE_MOVIE_FAILURE":
         return {
           ...state,
           isFetching: false,
-          error: true,
+          error: action.payload,
         };
       case "UPLOAD_MOVIE_START":
         return {
@@ -69,6 +70,7 @@ const MovieReducer = (state, action) => {
           movies: state.movies.filter((movie) => movie._id !== action.payload),
           isFetching: false,
           error: false,
+          message: action.message,
         };
       case "DELETE_MOVIE_FAILURE":
         return {
