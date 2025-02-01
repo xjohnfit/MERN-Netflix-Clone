@@ -2,8 +2,8 @@ import axios from 'axios';
 import {
     createListFailure,
     createListStart,
-  createListSuccess,
-  deleteListFailure,
+    createListSuccess,
+    deleteListFailure,
     deleteListStart,
     deleteListSuccess,
     getListsFailure,
@@ -23,23 +23,29 @@ export const getLists = async (dispatch) => {
         });
         dispatch(getListsSuccess(res.data));
     } catch (err) {
-        dispatch(getListsFailureFailure());
+        dispatch(getListsFailure());
     }
 };
 
 //CREATE A LIST
 export const createList = async (list, dispatch) => {
-  dispatch(createListStart());
-  try {
-    const res = await axios.post(`${import.meta.env.VITE_API_URL}/lists/create`, list, {
-      headers: {
-        token: "Bearer " + JSON.parse(localStorage.getItem("user")).token,
-      },
-    });
-    dispatch(createListSuccess(res.data));
-  } catch (err) {
-    dispatch(createListFailure());
-  }
+    dispatch(createListStart());
+    try {
+        const res = await axios.post(
+            `${import.meta.env.VITE_API_URL}/lists/create`,
+            list,
+            {
+                headers: {
+                    token:
+                        'Bearer ' +
+                        JSON.parse(localStorage.getItem('user')).token,
+                },
+            }
+        );
+        dispatch(createListSuccess(res.data));
+    } catch (err) {
+        dispatch(createListFailure());
+    }
 };
 
 //delete
@@ -50,7 +56,9 @@ export const deleteList = async (id, dispatch) => {
             `${import.meta.env.VITE_API_URL}/lists/delete/${id}`,
             {
                 headers: {
-                    token: "Bearer " + JSON.parse(localStorage.getItem("user")).token,
+                    token:
+                        'Bearer ' +
+                        JSON.parse(localStorage.getItem('user')).token,
                 },
             }
         );

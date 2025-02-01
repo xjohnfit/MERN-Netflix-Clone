@@ -72,6 +72,7 @@ const Lists = () => {
                 <button onClick={() => setOpen(true)} className="w-50 px-3 py-1 text-xl text-white border-none bg-green-600 rounded-lg cursor-pointer">Create New List</button>
                 {open && <NewList open={open} onClose={() => setOpen(false)} />}
             </div>
+            <div className="px-5">
             <DataGrid
                 rows={lists}
                 columns={columns}
@@ -87,6 +88,7 @@ const Lists = () => {
                 disableRowSelectionOnClick
                 getRowId={(row) => row._id}
             />
+            </div>
         </div>
     );
 };

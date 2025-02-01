@@ -103,7 +103,7 @@ const NewList = ({ open, onClose }) => {
                         
                         <div className="w-full flex flex-col mt-3 mr-5">
                             
-                            <select defaultValue={['default']} className="h-96 p-3 border border-solid border-gray-600 rounded-lg outline-none overflow-y-hidden" onChange={handleSelect} multiple name="content" id="content">
+                            <select defaultValue={['default']} className="h-96 p-3 border border-solid border-gray-600 rounded-lg outline-none" onChange={handleSelect} multiple name="content" id="content">
                                 <option value="default" disabled>Select movies or shows to add to this list</option>
                                 {movies.map((movie) => (
                                     <option key={movie._id} value={movie._id}>{movie.title}</option>

@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
-import { AuthContextProvider } from './context/authContext/authContext.jsx';
+import { AuthContextProvider } from './context/authContext/AuthContext.jsx';
 import { MovieContextProvider } from './context/movieContext/MovieContext.jsx';
 import { ListContextProvider } from './context/listContext/ListContext.jsx';
 import { UserContextProvider } from './context/userContext/UserContext.jsx';

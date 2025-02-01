@@ -5,7 +5,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../authContext/AuthContext';
-import { logout } from '../../authContext/authActions';
+import { logout } from '../../authContext/AuthActions';
 
 const Navbar = () => {
 
