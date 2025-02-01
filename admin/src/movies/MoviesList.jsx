@@ -1,11 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { Edit, Delete } from '@mui/icons-material';
 import toast, { Toaster } from 'react-hot-toast';
-
 import NewMovie from './NewMovie';
-
 import { MovieContext } from '../context/movieContext/MovieContext';
 import {
     deleteMovie,
@@ -14,16 +12,19 @@ import {
 
 const MoviesList = () => {
     const [open, setOpen] = useState(false);
-    const { movies, dispatch, message, error } = useContext(MovieContext);
+    const { movies, successMessage, error, dispatch } =
+        useContext(MovieContext);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         getMovies(dispatch);
-        if (message) {
-            toast.success(message);
-        } else if (error) {
-            toast.error(error);
+        if(successMessage) {
+            toast.success(successMessage, { duration: 4000 });
+        } else if(error) {
+            toast.error(error, { duration: 4000 });
         }
-    }, [dispatch, message, error]);
+    }, [successMessage, error, dispatch]);
 
     const handleDelete = (id) => {
         deleteMovie(id, dispatch);

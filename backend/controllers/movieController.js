@@ -4,11 +4,22 @@ import MovieModel from '../models/MovieModel.js';
 const createMovie = async (req, res) => {
     if (req.user.isAdmin) {
         const newMovie = new MovieModel(req.body);
+
+        const title = req.body.title;
+        const existingMovie = await MovieModel.findOne({ title });
+
+        if (existingMovie) {
+            return res.status(400).json({ message: 'Movie already exists' });
+        }
+
         try {
             const savedMovie = await newMovie.save();
-            res.status(201).json(savedMovie);
-        } catch (err) {
-            res.status(500).json({ message: 'Error saving movie' });
+            res.status(201).json({
+                movie: savedMovie,
+                successMessage: 'Movie created successfully',
+            });
+        } catch (error) {
+            res.status(500).json({ error: 'Error saving movie' });
         }
     } else {
         res.status(403).json('You are not admin. Access denied.');
@@ -17,14 +28,14 @@ const createMovie = async (req, res) => {
 
 // Get all
 const getAll = async (req, res) => {
-    if(req.user.isAdmin) {
+    if (req.user.isAdmin) {
         try {
             const movies = await MovieModel.find();
             res.status(200).json(movies.reverse());
         } catch (err) {
             res.status(500).json({ message: 'Error getting movies' });
         }
-    } else {    
+    } else {
         res.status(403).json('You are not admin. Access denied.');
     }
 };
@@ -40,17 +51,17 @@ const getMovieById = async (req, res) => {
     }
 };
 
-//Get random movie 
+//Get random movie
 const getRandomMovie = async (req, res) => {
     const type = req.query.type;
     try {
-        if(type === 'show') {
+        if (type === 'show') {
             const randomSeries = await MovieModel.aggregate([
                 { $match: { isShow: true } },
                 { $sample: { size: 1 } },
             ]);
             res.status(200).json(randomSeries);
-        } else if(type === 'movie') {
+        } else if (type === 'movie') {
             const randomMovie = await MovieModel.aggregate([
                 { $match: { isShow: false } },
                 { $sample: { size: 1 } },
@@ -67,9 +78,9 @@ const getRandomMovie = async (req, res) => {
     }
 };
 
-// Update movie
+// Update movie controller
 const updateMovie = async (req, res) => {
-    console.log(req)
+    console.log(req);
     const { id } = req.params;
     if (req.user.isAdmin) {
         try {
@@ -78,8 +89,11 @@ const updateMovie = async (req, res) => {
                 { $set: req.body },
                 { new: true }
             );
-            res.status(200).json({ message: 'Movie updated', updatedMovie });
-        } catch (err) {
+            res.status(200).json({
+                updatedMovie,
+                successMessage: 'Movie updated successfully',
+            });
+        } catch (error) {
             res.status(500).json({ message: 'Error updating movie' });
         }
     } else {
@@ -93,14 +107,22 @@ const deleteMovie = async (req, res) => {
         const { id } = req.params;
         try {
             await MovieModel.findByIdAndDelete(id);
-            res.status(200).json({ success: true, message: 'Movie deleted' });
+            res.status(200).json({
+                successMessage: 'Movie deleted successfully',
+            });
         } catch (err) {
             res.status(500).json({
-                success: false,
-                message: 'Error deleting movie',
+                error: 'Error deleting movie',
             });
         }
     }
 };
 
-export { createMovie, getAll, getMovieById, getRandomMovie, updateMovie, deleteMovie };
+export {
+    createMovie,
+    getAll,
+    getMovieById,
+    getRandomMovie,
+    updateMovie,
+    deleteMovie,
+};

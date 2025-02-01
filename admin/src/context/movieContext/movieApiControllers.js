@@ -9,6 +9,9 @@ import {
     getMoviesFailure,
     getMoviesStart,
     getMoviesSuccess,
+    updateMovieFailure,
+    updateMovieStart,
+    updateMovieSuccess,
 } from './MovieActions';
 
 //GET ALL MOVIES API CALL
@@ -45,10 +48,36 @@ export const createMovie = async (movie, dispatch) => {
         );
         //call success action
         //dispatch function updates the state of the context
-        dispatch(createMovieSuccess(res.data, 'Movie created successfully'));
+        dispatch(createMovieSuccess(res.data.movie, res.data.successMessage));
     } catch (error) {
         //call failure action
         dispatch(createMovieFailure(error.response.data.message));
+    }
+};
+
+//UPDATE MOVIE API CALL
+export const updateMovie = async (movie, dispatch) => {
+    dispatch(updateMovieStart());
+    try {
+        const movieId = movie._id;
+        const res = await axios.put(
+            `${import.meta.env.VITE_API_URL}/movies/update/${movieId}`,
+            movie,
+            {
+                headers: {
+                    token:
+                        'Bearer ' +
+                        JSON.parse(localStorage.getItem('user')).token,
+                },
+            }
+        );
+
+        //call success action
+        dispatch(updateMovieSuccess(res.data, res.data.successMessage));
+    } catch (error) {
+
+        //call failure action
+        dispatch(updateMovieFailure(error.data.message));
     }
 };
 
@@ -66,8 +95,9 @@ export const deleteMovie = async (id, dispatch) => {
                 },
             }
         );
-        dispatch(deleteMovieSuccess(id, 'Movie deleted successfully'));
-    } catch (err) {
-        dispatch(deleteMovieFailure());
+        dispatch(deleteMovieSuccess(id, res.data.successMessage));
+        console.log(res.data.successMessage);
+    } catch (error) {
+        dispatch(deleteMovieFailure(error.response.data.message));
     }
 };

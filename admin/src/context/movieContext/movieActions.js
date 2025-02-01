@@ -19,10 +19,10 @@ export const getMoviesStart = () => ({
   });
   
   //gets response from api call as parameter
-  export const createMovieSuccess = (movie, message) => ({
+  export const createMovieSuccess = (movie, successMessage) => ({
     type: "CREATE_MOVIE_SUCCESS",
     payload: movie,
-    message: message,
+    successMessage: successMessage,
   });
   
   export const createMovieFailure = (error) => ({
@@ -36,13 +36,15 @@ export const getMoviesStart = () => ({
     type: "UPDATE_MOVIE_START",
   });
   
-  export const updateMovieSuccess = (movie) => ({
+  export const updateMovieSuccess = (movie, message) => ({
     type: "UPDATE_MOVIE_SUCCESS",
     payload: movie,
+    successMessage: message,
   });
   
-  export const updateMovieFailure = () => ({
+  export const updateMovieFailure = (error) => ({
     type: "UPDATE_MOVIE_FAILURE",
+    payload: error,
   });
   
 
@@ -54,9 +56,11 @@ export const getMoviesStart = () => ({
   export const deleteMovieSuccess = (id, successMessage) => ({
     type: "DELETE_MOVIE_SUCCESS",
     payload: id,
-    message: successMessage,
+    successMessage: successMessage,
+    error: false,
   });
   
-  export const deleteMovieFailure = () => ({
+  export const deleteMovieFailure = (error) => ({
     type: "DELETE_MOVIE_FAILURE",
+    error: error,
   });
