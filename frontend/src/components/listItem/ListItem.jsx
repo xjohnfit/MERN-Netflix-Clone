@@ -8,62 +8,71 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const ListItem = ({ index, item }) => {
+    const [isHovered, setIsHovered] = useState(false);
+    const [movie, setMovie] = useState({});
 
-  const [isHovered, setIsHovered] = useState(false);
-  const [movie, setMovie] = useState({});
+    useEffect(() => {
+        const getMovie = async () => {
+            try {
+                const res = await axios.get(
+                    `${import.meta.env.VITE_API_URL}/movies/get/` + item,
+                    {
+                        headers: {
+                            token:
+                                'Bearer ' +
+                                JSON.parse(localStorage.getItem('user')).token,
+                        },
+                    }
+                );
+                setMovie(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getMovie();
+    }, [item]);
 
-
-  useEffect(() => {
-    const getMovie = async () => {
-      try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/movies/get/` + item, {
-          headers: {
-            token: import.meta.env.VITE_TOKEN
-          }
-        });
-        setMovie(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getMovie();
-  }, [item]);
-
-  return (
-    <Link to={{ pathname: "/watch" }} state={{ movie }}>
-      <div
-        className="listItem ml-5"
-        style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <img
-          src={movie?.imgThumbnail} alt="Image Thumbnail"
-        />
-        {isHovered && (
-          <>
-            <video src={movie.trailer} autoPlay muted ></video>
-            <div className="itemInfo">
-              <div className="icons">
-                <PlayArrowIcon className="icon" />
-                <AddIcon className="icon" />
-                <ThumbUpOutlinedIcon className="icon" />
-                <ThumbDownOffAltOutlinedIcon className="icon" />
-              </div>
-              <div className="itemInfoTop">
-                <span>{movie.duration}</span>
-                <span className="limit">{movie.limit}</span>
-                <span>{movie.year}</span>
-              </div>
-              <div className="desc">
-                {movie.desc}
-              </div>
-              <div className="genre">{movie.genre}</div>
+    return (
+        <Link
+            to={{ pathname: '/watch' }}
+            state={{ movie }}
+        >
+            <div
+                className="listItem"
+                style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
+                <img
+                    src={movie?.imgThumbnail}
+                    alt="Image Thumbnail"
+                />
+                {isHovered && (
+                    <>
+                        <video
+                            src={movie.trailer}
+                            autoPlay
+                            muted
+                        ></video>
+                        <div className="itemInfo">
+                            <div className="icons">
+                                <PlayArrowIcon className="icon" />
+                                <AddIcon className="icon" />
+                                <ThumbUpOutlinedIcon className="icon" />
+                                <ThumbDownOffAltOutlinedIcon className="icon" />
+                            </div>
+                            <div className="itemInfoTop">
+                                <span>{movie.duration}</span>
+                                <span className="limit">{movie.limit}</span>
+                                <span>{movie.year}</span>
+                            </div>
+                            <div className="desc">{movie.desc}</div>
+                            <div className="genre">{movie.genre}</div>
+                        </div>
+                    </>
+                )}
             </div>
-          </>
-        )}
-      </div>
-    </Link>
-  );
+        </Link>
+    );
 };
 export default ListItem;

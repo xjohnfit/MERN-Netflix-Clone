@@ -1,8 +1,8 @@
 import { NotificationsNone, Language, Settings, Logout, Person } from '@mui/icons-material';
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "./context/authContext/authContext";
-import { logout } from './context/authContext/authActions';
+import { AuthContext } from "./context/authContext/AuthContext";
+import { logout } from './context/authContext/AuthActions';
 
 const Header = () => {
 

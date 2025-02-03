@@ -1,14 +1,14 @@
 import './login.scss';
 import { useContext, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { login } from '../../authContext/authController';
 import { AuthContext } from '../../authContext/AuthContext';
+
 
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
     const { dispatch } = useContext(AuthContext);
 
     const handleLogin = async (e) => {
