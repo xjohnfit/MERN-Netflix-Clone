@@ -1,4 +1,3 @@
-import "./app.scss";
 import HomePage from "./pages/home/HomePage";
 import Register from "./pages/register/Register";
 import Watch from "./pages/watch/Watch";

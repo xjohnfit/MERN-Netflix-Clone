@@ -1,5 +1,3 @@
-@import '../../app.scss';
-
 .navbar {
     width: 100%;
     color: rgb(255, 255, 255);
@@ -10,7 +8,7 @@
     background: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.3) 50%);
 
     &.scrolled {
-        background-color: var(--main-color);
+        background-color: black;
     }
 
     .nav_container {
@@ -56,7 +54,7 @@
             .profile {
                 .options {
                     display: none;
-                    background-color: var(--main-color);
+                    background-color: black;
                     border-radius: 5px;
                 }
                 

@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import './register.scss';
 import toast, { Toaster } from 'react-hot-toast';
 
 const Register = () => {
@@ -37,7 +36,7 @@ const Register = () => {
     };
 
     return (
-        <div className="w-screen h-screen bg-[linear-gradient(to_top,rgba(0,0,0,0),rgba(0,0,0,0.8)),url('/src/media/netflix-login-signup.jpg')]  bg-cover relative'>">
+        <div className="w-screen h-screen bg-[linear-gradient(to_top,rgba(0,0,0,0),rgba(0,0,0,0.8)),url('/src/media/netflix-login-signup.jpg')]  bg-cover relative">
             <Toaster toastOptions={{
                 style: {
                     fontSize: '14px',
@@ -65,7 +64,7 @@ const Register = () => {
             <div className="w-full h-full absolute top-0 left-0 flex flex-col items-center justify-center text-white">
                 <h1 className='text-5xl text-center p-2'>Unlimited movies, TV shows, and more.</h1>
                 <h2 className='m-5 text-center'>Watch anywhere. Cancel anytime.</h2>
-                <p className='text-lg'>
+                <p className='text-lg text-center'>
                     Ready to watch? Enter your email to create or restart your
                     membership.
                 </p>

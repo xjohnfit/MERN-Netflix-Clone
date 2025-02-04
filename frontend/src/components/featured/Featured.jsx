@@ -59,10 +59,10 @@ const Featured = ({ type, setGenre }) => {
             />
             <div className="info">
                 {
-                    content?.imgTitle !== "" && (
+                    content?.imgTitle && (
                         <img
                             className='w-[40vw]'
-                            src={content?.imgTitle}
+                            src={content.imgTitle}
                             alt="Image Title"
                         />
                     )
