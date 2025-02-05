@@ -61,7 +61,7 @@ package.json
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/netflix-clone.git
+    git clone https://github.com/xjohnfit/MERN-Netflix-Clone.git
     cd netflix-clone
     ```
 
