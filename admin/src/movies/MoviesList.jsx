@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { Edit, Delete } from '@mui/icons-material';
 import toast, { Toaster } from 'react-hot-toast';
@@ -14,8 +14,6 @@ const MoviesList = () => {
     const [open, setOpen] = useState(false);
     const { movies, successMessage, error, dispatch } =
         useContext(MovieContext);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         getMovies(dispatch);

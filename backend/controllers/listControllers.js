@@ -7,7 +7,8 @@ const createList = async (req, res) => {
         const newList = new ListModel(req.body);
         try {
             const savedList = await newList.save();
-            res.status(201).json(savedList);
+            res.status(201).json({list: savedList,  successMessage: 'List created successfully'});
+            
         } catch (error) {
             res.status(500).json({ message: 'Error saving list' });
         }
@@ -50,9 +51,9 @@ const deleteList = async (req, res) => {
     if(isAdmin) {
         try {
             await ListModel.findByIdAndDelete(id);
-            res.status(200).json({ message: 'List deleted successfully' });
+            res.status(200).json({ successMessage: 'List deleted successfully' });
         } catch (error) {
-            res.status(500).json({ message: 'Error deleting list' });
+            res.status(500).json({ error: 'Error deleting list' });
         }
     } else {
         res.status(403).json({ message: 'You are not allowed to delete a list' });

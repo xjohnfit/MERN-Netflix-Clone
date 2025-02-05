@@ -42,7 +42,8 @@ export const createList = async (list, dispatch) => {
                 },
             }
         );
-        dispatch(createListSuccess(res.data));
+        dispatch(createListSuccess(res.data.list, res.data.successMessage));
+        console.log(res.data.successMessage)
     } catch (err) {
         dispatch(createListFailure());
     }
@@ -52,7 +53,7 @@ export const createList = async (list, dispatch) => {
 export const deleteList = async (id, dispatch) => {
     dispatch(deleteListStart());
     try {
-        await axios.delete(
+        const res = await axios.delete(
             `${import.meta.env.VITE_API_URL}/lists/delete/${id}`,
             {
                 headers: {
@@ -62,8 +63,8 @@ export const deleteList = async (id, dispatch) => {
                 },
             }
         );
-        dispatch(deleteListSuccess(id));
-    } catch (err) {
-        dispatch(deleteListFailure());
+        dispatch(deleteListSuccess(id, res.data.successMessage));
+    } catch (error) {
+        dispatch(deleteListFailure(error.response.data.message));
     }
 };

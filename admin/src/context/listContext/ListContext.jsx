@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   lists: [],
   isFetching: false,
   error: false,
+  successMessage: false,
 };
 
 export const ListContext = createContext(INITIAL_STATE);
@@ -17,6 +18,7 @@ export const ListContextProvider = ({ children }) => {
       value={{
         lists: state.lists,
         isFetching: state.isFetching,
+        successMessage: state.successMessage,
         error: state.error,
         dispatch,
       }}

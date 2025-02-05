@@ -9,24 +9,19 @@ const NewList = ({ open, onClose }) => {
 
     const [list, setList] = useState(null);
 
-    const { dispatch } = useContext(ListContext);
+    const { dispatch, successMessage, error } = useContext(ListContext);
     const { movies, dispatch: dispatchMovie } = useContext(MovieContext);
 
     useEffect(() => {
         getMovies(dispatchMovie);
-    }, [dispatchMovie]);
+        if(successMessage) {
+            onClose();
+        }
+    }, [dispatchMovie, successMessage, error]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         createList(list, dispatch);
-        if (handleSubmit) {
-            toast.success('List created successfully');
-            setTimeout(() => {
-                onClose();
-            }, 2000);
-        } else {
-            toast.error('Failed to create list');
-        }
     };
 
     const handleSelect = (e) => {
@@ -45,7 +40,7 @@ const NewList = ({ open, onClose }) => {
             <Toaster position="center" toastOptions={{ duration: 5000 }} />
             <div onClick={(e) => e.stopPropagation()} className={`bg-white p-10 rounded-xl shadow transition-all ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"} h-fit w-[800px]`}>
                 <div>
-                    <button onClick={onClose} className="absolute text-xl top-2 right-4 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600">X</button>
+                    <button onClick={onClose} className="absolute text-xl top-2 right-4 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600 hover:font-bold">X</button>
                     <h1 className="text-2xl font-semibold">New List</h1>
                     <form className="flex flex-wrap flex-col">
                         <div className="flex">
@@ -83,9 +78,9 @@ const NewList = ({ open, onClose }) => {
 
                                 <div className="p-1 border border-solid border-gray-600 rounded-lg flex items-center justify-start">
                                     <input onChange={handleChange} className="ml-3" type="radio" name="type" id="movie" value="movie" />
-                                    <label className="mx-3 text-md text-gray-600" htmlFor="movie">Movie</label>
+                                    <label className="mx-3 text-md text-black" htmlFor="movie">Movie</label>
                                     <input onChange={handleChange} className="" type="radio" name="type" id="show" value="show" />
-                                    <label className="mx-3 text-md text-gray-600" htmlFor="show">Show</label>
+                                    <label className="mx-3 text-md text-black" htmlFor="show">Show</label>
 
                                 </div>
                             </div>

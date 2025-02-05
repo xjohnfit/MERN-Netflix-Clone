@@ -5,14 +5,20 @@ import { useContext, useEffect, useState } from 'react';
 import NewList from './NewList';
 import { ListContext } from '../context/listContext/ListContext';
 import { deleteList, getLists } from '../context/listContext/ListApiControllers';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Lists = () => {
     const [open, setOpen] = useState(false);
-    const { lists, dispatch } = useContext(ListContext);
+    const { lists, dispatch, successMessage, error } = useContext(ListContext);
 
     useEffect(() => {
         getLists(dispatch);
-    }, [dispatch]);
+        if (successMessage) {
+            toast.success(successMessage, { duration: 4000 });
+        } else if (error) {
+            toast.error(error, { duration: 4000 });
+        }
+    }, [successMessage, error, dispatch]);
 
     const handleDelete = (id) => {
         deleteList(id, dispatch);
@@ -68,26 +74,37 @@ const Lists = () => {
 
     return (
         <div className="flex-[6_6_0%]">
+            <Toaster
+                position="bottom-left"
+                toastOptions={{
+                    style: {
+                        fontSize: '16px',
+                        padding: '15px 25px',
+                        color: '#fff',
+                        background: '#333',
+                    },
+                }}
+            />
             <div className='p-5 flex justify-end'>
                 <button onClick={() => setOpen(true)} className="w-50 px-3 py-1 text-xl text-white border-none bg-green-600 rounded-lg cursor-pointer">Create New List</button>
                 {open && <NewList open={open} onClose={() => setOpen(false)} />}
             </div>
             <div className="px-5">
-            <DataGrid
-                rows={lists}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                        paginationModel: {
-                            pageSize: 20,
+                <DataGrid
+                    rows={lists}
+                    columns={columns}
+                    initialState={{
+                        pagination: {
+                            paginationModel: {
+                                pageSize: 20,
+                            },
                         },
-                    },
-                }}
-                pageSizeOptions={[5, 10, 20]}
-                checkboxSelection
-                disableRowSelectionOnClick
-                getRowId={(row) => row._id}
-            />
+                    }}
+                    pageSizeOptions={[5, 10, 20]}
+                    checkboxSelection
+                    disableRowSelectionOnClick
+                    getRowId={(row) => row._id}
+                />
             </div>
         </div>
     );

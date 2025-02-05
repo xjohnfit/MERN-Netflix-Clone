@@ -45,9 +45,9 @@ const getMovieById = async (req, res) => {
     const { id } = req.params;
     try {
         const movie = await MovieModel.findById(id);
-        res.status(200).json(movie);
-    } catch (err) {
-        res.status(500).json({ message: 'Error getting movie' });
+        res.status(200).json({ movie: movie, successMessage: 'Movie fetched successfully' });
+    } catch (error) {
+        res.status(500).json({ error: error, message: 'Error getting movie' });
     }
 };
 

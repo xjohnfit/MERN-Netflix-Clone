@@ -18,9 +18,11 @@ export const getListsStart = () => ({
     type: "CREATE_LIST_START",
   });
   
-  export const createListSuccess = (list) => ({
+  export const createListSuccess = (list, successMessage) => ({
     type: "CREATE_LIST_SUCCESS",
     payload: list,
+    successMessage: successMessage,
+    error: false,
   });
   
   export const createListFailure = () => ({
@@ -48,11 +50,14 @@ export const getListsStart = () => ({
     type: "DELETE_LIST_START",
   });
   
-  export const deleteListSuccess = (id) => ({
+  export const deleteListSuccess = (id, successMessage) => ({
     type: "DELETE_LIST_SUCCESS",
     payload: id,
+    successMessage: successMessage,
+    error: false,
   });
   
-  export const deleteListFailure = () => ({
+  export const deleteListFailure = (error) => ({
     type: "DELETE_LIST_FAILURE",
+    error: error,
   });

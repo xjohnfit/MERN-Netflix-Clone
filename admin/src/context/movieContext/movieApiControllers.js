@@ -30,6 +30,22 @@ export const getMovies = async (dispatch) => {
     }
 };
 
+//GET MOVIE BY ID API CALL
+export const getMovieById = async (id, dispatch) => {
+    dispatch(getMoviesStart());
+    try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/movies/${id}`, {
+            headers: {
+                token:
+                    'Bearer ' + JSON.parse(localStorage.getItem('user')).token,
+            },
+        });
+        dispatch(getMoviesSuccess(res.data, res.data.successMessage));
+    } catch (error) {
+        dispatch(getMoviesFailure(error.response.data.message));
+    }
+};
+
 //CREATE MOVIE API CALL
 export const createMovie = async (movie, dispatch) => {
     //call start action

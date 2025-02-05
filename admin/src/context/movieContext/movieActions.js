@@ -12,6 +12,19 @@ export const getMoviesStart = () => ({
     type: "GET_MOVIES_FAILURE",
   });
   
+  //GET MOVIE BY ID
+  export const getMovieByIdStart = () => ({
+    type: "GET_MOVIE_BY_ID_START",
+  });
+
+  export const getMovieByIdSuccess = (movie) => ({
+    type: "GET_MOVIE_BY_ID_SUCCESS",
+    payload: movie,
+  });
+
+  export const getMovieByIdFailure = () => ({
+    type: "GET_MOVIE_BY_ID_FAILURE",
+  });
 
   //CREATE MOVIE ACTION
   export const createMovieStart = () => ({

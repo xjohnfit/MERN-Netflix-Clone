@@ -62,6 +62,8 @@ const MovieReducer = (state, action) => {
           isFetching: false,
           error: action.payload,
         };
+
+      //DELETE MOVIE REDUCER
       case "DELETE_MOVIE_START":
         return {
           ...state,

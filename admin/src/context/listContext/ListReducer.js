@@ -32,6 +32,7 @@ const ListReducer = (state, action) => {
         return {
           lists: [...state.lists, action.payload],
           isFetching: false,
+          successMessage: action.successMessage,
           error: false,
         };
       case "CREATE_LIST_FAILURE":
@@ -61,6 +62,8 @@ const ListReducer = (state, action) => {
       //     isFetching: false,
       //     error: true,
       //   };
+
+      //DELETE LIST REDUCER
       case "DELETE_LIST_START":
         return {
           ...state,
@@ -72,12 +75,13 @@ const ListReducer = (state, action) => {
           lists: state.lists.filter((list) => list._id !== action.payload),
           isFetching: false,
           error: false,
+          successMessage: action.successMessage,
         };
       case "DELETE_LIST_FAILURE":
         return {
           ...state,
           isFetching: false,
-          error: true,
+          error: action.error,
         };
       default:
         return { ...state };
