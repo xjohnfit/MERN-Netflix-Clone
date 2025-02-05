@@ -71,8 +71,8 @@ const MoviesList = () => {
             editable: true,
         },
         {
-            field: 'isShow',
-            headerName: 'isShow',
+            field: 'type',
+            headerName: 'Type',
             width: 120,
             editable: true,
         },

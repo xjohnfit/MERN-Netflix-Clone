@@ -122,7 +122,7 @@ const EditMovie = () => {
             return;
         }
 
-        if (!movie.isShow) {
+        if (!movie.type) {
             toast.error('Type (Show or Movie) is required');
             return;
         }
@@ -284,7 +284,7 @@ const EditMovie = () => {
                         <div className="flex items-center justify-center mb-5">
                             <span className="w-40 font-semibold">Is Show?</span>
                             <select
-                                value={movie.isShow == true ? 'true' : 'false'}
+                                value={movie.type == true ? 'true' : 'false'}
                                 onChange={(e) =>
                                     setMovie({
                                         ...movie,
@@ -292,7 +292,7 @@ const EditMovie = () => {
                                     })
                                 }
                                 className="w-full outline-none border-b border-gray-400"
-                                name="isShow"
+                                name="type"
                             >
                                 <option
                                     value="default"

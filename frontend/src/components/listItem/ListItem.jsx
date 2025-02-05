@@ -24,7 +24,7 @@ const ListItem = ({ index, item }) => {
                         },
                     }
                 );
-                setMovie(res.data);
+                setMovie(res.data.movie);
             } catch (err) {
                 console.log(err);
             }

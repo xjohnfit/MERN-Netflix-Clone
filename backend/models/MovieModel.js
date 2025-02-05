@@ -37,9 +37,9 @@ const MovieSchema = new mongoose.Schema(
         genre: {
             type: String,
         },
-        isShow: {
-            type: Boolean,
-            default: false,
+        type: {
+            type: String,
+            default: "",
         },
         status: {
             type: Boolean,

@@ -126,7 +126,7 @@ const NewMovie = ({ open, onClose }) => {
             return;
         }
 
-        if (!movie.isShow) {
+        if (!movie.type) {
             toast.error('Type (Show or Movie) is required');
             return;
         }
@@ -289,7 +289,7 @@ const NewMovie = ({ open, onClose }) => {
                                     defaultValue={'default'}
                                     onChange={handleChange}
                                     className="w-full outline-none border-b border-gray-400"
-                                    name="isShow"
+                                    name="type"
                                 >
                                     <option
                                         value="default"

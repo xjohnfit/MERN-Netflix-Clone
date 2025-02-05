@@ -17,19 +17,23 @@ const EditList = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
 
 
+  //TODO set selected movies or shows to add or remove from list
+  console.log(movies);
+
 
   useEffect(() => {
     getMovies(dispatchMovie);
-    setSelectedOptions(list.content.map((item) =>
-      movies.find((movie) => movie._id === item)).filter((item) => item !== undefined));
-  }, [successMessage, error, list]);
+
+    setSelectedOptions(list.content.map((item) => movies.find((movie) => movie._id === item)).filter((item) => item !== undefined));
+  }, [successMessage, error]);
 
   const handleChange = (e) => {
     console.log('handleChange', e.target.value);
   };
 
   const handleSelect = (e) => {
-    console.log(selectedOptions, e.target.value);
+    let value = Array.from(e.target.selectedOptions, option => option.value);
+        setList({ ...list, content: value });
   };
 
   const handleSubmit = (e) => {
@@ -119,7 +123,7 @@ const EditList = () => {
 
           <select defaultValue={['default']} className="h-96 p-3 border border-solid border-gray-600 rounded-lg outline-none" onChange={handleSelect} multiple name="content" id="content">
             <option value="default" disabled>Select movies or shows to remove from list</option>
-            {selectedOptions.map((item) => (
+            {movies.map((item) => (
               <option key={item._id} value={item._id}>{item.title}</option>
             ))}
           </select>

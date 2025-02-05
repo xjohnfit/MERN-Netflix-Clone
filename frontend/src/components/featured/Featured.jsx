@@ -7,7 +7,6 @@ import axios from 'axios';
 const Featured = ({ type, setGenre }) => {
     const [content, setContent] = useState({});
     useEffect(() => {
-        // console.log('Bearer ' + JSON.parse(localStorage.getItem('user')).token);
         const getRandomContent = async () => {
             try {
                 const res = await axios.get(`${import.meta.env.VITE_API_URL}/movies/random?type=${type}`, {

@@ -57,13 +57,13 @@ const getRandomMovie = async (req, res) => {
     try {
         if (type === 'show') {
             const randomSeries = await MovieModel.aggregate([
-                { $match: { isShow: true } },
+                { $match: { type: 'show' } },
                 { $sample: { size: 1 } },
             ]);
             res.status(200).json(randomSeries);
         } else if (type === 'movie') {
             const randomMovie = await MovieModel.aggregate([
-                { $match: { isShow: false } },
+                { $match: { type: 'movie' } },
                 { $sample: { size: 1 } },
             ]);
             res.status(200).json(randomMovie);

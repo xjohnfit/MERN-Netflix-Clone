@@ -4,7 +4,7 @@ This is a Netflix Clone project built using the MERN stack (MongoDB, Express, Re
 
 ## Project Structure
 
-```
+```text
 .env
 .gitignore
 admin/
@@ -60,12 +60,14 @@ package.json
 ### Installation
 
 1. Clone the repository:
+
     ```sh
     git clone https://github.com/xjohnfit/MERN-Netflix-Clone.git
-    cd netflix-clone
+    cd MERN-Netflix-Clone
     ```
 
 2. Install dependencies for the backend, frontend, and admin:
+
     ```sh
     npm install
     cd backend && npm install
@@ -74,6 +76,7 @@ package.json
     ```
 
 3. Create a `.env` file in the root directory and add your environment variables:
+
     ```env
     MONGO_URL=your_mongodb_connection_string
     PORT=5001
@@ -82,11 +85,13 @@ package.json
     ```
 
 4. Create a `.env` file in the `admin` directory and add your Firebase configuration:
+
     ```env
     VITE_FIREBASE_API_KEY=your_firebase_api_key
     ```
 
 5. Create a `.env` file in the `frontend` directory and add your environment variables:
+
     ```env
     VITE_API_URL=http://localhost:5001/api
     ```
