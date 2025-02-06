@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import NetflixLogo from '../../media/netflix_logo.png';
 
 const Register = () => {
 
@@ -49,8 +50,8 @@ const Register = () => {
                 <div className="flex items-center justify-between px-10 py-6">
                     <img
                         className="h-[40px]"
-                        src="../src/media/Netflix_2015_logo.svg.png"
-                        alt=""
+                        src={NetflixLogo}
+                        alt="Netflix Logo"
                     />
                     <div className='flex items-center gap-5'>
                         <div className='flex gap-5'>

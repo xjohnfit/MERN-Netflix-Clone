@@ -7,6 +7,7 @@ import { Person, ArrowDownward, Notifications, Search } from '@mui/icons-materia
 import { AuthContext } from '../../authContext/AuthContext';
 import { logout } from '../../authContext/AuthActions';
 
+import NetflixLogo from '../../media/netflix_logo.png';
 const Navbar = () => {
 
     const [scrolled, setScrolled] = useState(false);
@@ -22,7 +23,7 @@ const Navbar = () => {
             <div className="nav_container">
                 <div className="left">
                     <Link to="/"><img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
+                        src={NetflixLogo}
                         alt=""
                     /></Link>
                     <Link to="/"><span className='hidden xl:block lg:block md:hidden sm:hidden'>Homepage</span></Link>
@@ -38,14 +39,14 @@ const Navbar = () => {
                     {
                         user.user.profilePic !== "" ? (
                             <img
-                        src={user.user.profilePic}
-                        alt="User Avatar"
-                    />
+                                src={user.user.profilePic}
+                                alt="User Avatar"
+                            />
                         ) : (
                             <Person className="icon" />
                         )
                     }
-                    
+
                     <div className="profile">
                         <ArrowDownward className="icon" />
                         <div className="options">
